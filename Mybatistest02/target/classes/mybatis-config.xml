@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="jdbc.properties" />
+
+
+    <!--开启驼峰转换-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+
+
+        <!--
+        typeAlias：设置某个类型的别名属性：
+        type：设置需要设置别名的类型
+        alias：设置某个类型的别名，若不设置该属性，那么该类型拥有默认的别名，即类名
+        且不区分大小写
+        -->
+        <!--<typeAlias type="com.softeem.mybatis.pojo.User"></typeAlias>-->
+        <!--以包为单位，将包下所有的类型设置默认的类型别名，即类名且不区分大小写-->
+        <package name="com.softeem.bean"/>
+    </typeAliases>
+
+    <plugins>
+        <!--设置分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+            <!-- 分页参数合理化即小于第一页为第一页，大于最大页为最后一页  -->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+        <package name="com.softeem.mapper"/>
+    </mappers>
+</configuration>
